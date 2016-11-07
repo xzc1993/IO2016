@@ -10,5 +10,5 @@ object Main extends App {
     val sensor = new SensorLoader(configuration.sensorDataFile).load()
     println(s"Hello World from node ${configuration.nodeId}")
     println(map.getPixel(0,0))
-    println(sensor.data(0).data(5))
+    println(sensor.readings(0).distance(5))
 }
