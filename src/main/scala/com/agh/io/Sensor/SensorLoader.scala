@@ -1,15 +1,15 @@
 package com.agh.io.Sensor
 
-class SensorLoader {
+import java.io.File
 
-    val PATH = "data/DaneLabirynt1.csv";
+class SensorLoader(sensorDataFile: File){
 
     def load(): Sensor = {
         var data: Array[SensorReading] = new Array[SensorReading](0)
-        val bufferedSource = io.Source.fromFile(PATH)
+        val bufferedSource = io.Source.fromFile(sensorDataFile)
         for (line <- bufferedSource.getLines) {
             val cols = line.split(";").map(_.trim)
-            data :+= new SensorReading(cols(0), cols.drop(1).map( x => x.toDouble));
+            data :+= new SensorReading(cols(0), cols.drop(1).map( x => x.toDouble))
         }
         bufferedSource.close
         new Sensor(data)

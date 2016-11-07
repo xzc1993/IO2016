@@ -3,12 +3,10 @@ package com.agh.io.Map
 import java.io.File
 import javax.imageio.ImageIO
 
-class MapLoader {
-
-    val PATH = "data/maze.png";
+class MapLoader(mapDataFile: File) {
 
     def load(): Map = {
-        new Map(ImageIO.read(new File(PATH)))
+        new Map(ImageIO.read(mapDataFile))
     }
 
 }

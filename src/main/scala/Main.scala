@@ -6,7 +6,9 @@ import com.agh.io.Sensor.SensorLoader
 
 object Main extends App {
     val configuration = new CommandLineParser().load(args)
-    val map = new MapLoader().load();
-    val sensor = new SensorLoader().load();
+    val map = new MapLoader(configuration.mapDataFile).load()
+    val sensor = new SensorLoader(configuration.sensorDataFile).load()
     println(s"Hello World from node ${configuration.nodeId}")
+    println(map.getPixel(0,0))
+    println(sensor.data(0).data(5))
 }
