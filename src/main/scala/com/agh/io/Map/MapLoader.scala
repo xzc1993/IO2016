@@ -1,12 +1,16 @@
 package com.agh.io.Map
 
 import java.io.File
-import javax.imageio.ImageIO
+
+import com.google.gson.Gson
 
 class MapLoader(mapDataFile: File) {
 
     def load(): Map = {
-        new Map(ImageIO.read(mapDataFile))
+        val content: String = scala.io.Source.fromFile(mapDataFile).mkString
+        val gson = new Gson
+        val tmp: MapData = gson.fromJson(content, classOf[MapData])
+        new Map(tmp)
     }
 
 }

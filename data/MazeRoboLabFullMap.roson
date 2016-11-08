@@ -1,7 +1,7 @@
 {
   "walls": [
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall487",
       "width": 0.1,
       "height": 0.3,
@@ -16,7 +16,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall490",
       "width": 0.1,
       "height": 0.3,
@@ -31,7 +31,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall491",
       "width": 0.1,
       "height": 0.3,
@@ -46,7 +46,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall493",
       "width": 0.1,
       "height": 0.3,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall494",
       "width": 0.1,
       "height": 0.3,
@@ -76,7 +76,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall495",
       "width": 0.1,
       "height": 0.3,
@@ -91,7 +91,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall496",
       "width": 0.1,
       "height": 0.3,
@@ -106,7 +106,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall504",
       "width": 0.1,
       "height": 0.3,
@@ -121,7 +121,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall505",
       "width": 0.1,
       "height": 0.3,
@@ -136,7 +136,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall507",
       "width": 0.1,
       "height": 0.3,
@@ -151,7 +151,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall509",
       "width": 0.1,
       "height": 0.3,
@@ -166,7 +166,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall519",
       "width": 0.1,
       "height": 0.3,
@@ -181,7 +181,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall521",
       "width": 0.1,
       "height": 0.3,
@@ -196,7 +196,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall527",
       "width": 0.1,
       "height": 0.3,
@@ -211,7 +211,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall528",
       "width": 0.1,
       "height": 0.3,
@@ -226,7 +226,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall529",
       "width": 0.1,
       "height": 0.3,
@@ -241,7 +241,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall536",
       "width": 0.1,
       "height": 0.3,
@@ -256,7 +256,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall538",
       "width": 0.1,
       "height": 0.3,
@@ -271,7 +271,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall550",
       "width": 0.1,
       "height": 0.3,
@@ -286,7 +286,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall558",
       "width": 0.1,
       "height": 0.3,
@@ -301,7 +301,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall559",
       "width": 0.1,
       "height": 0.3,
@@ -316,7 +316,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall560",
       "width": 0.1,
       "height": 0.3,
@@ -331,7 +331,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall569",
       "width": 0.1,
       "height": 0.3,
@@ -346,7 +346,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall577",
       "width": 0.1,
       "height": 0.3,
@@ -361,7 +361,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall578",
       "width": 0.1,
       "height": 0.3,
@@ -376,7 +376,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall579",
       "width": 0.1,
       "height": 0.3,
@@ -391,7 +391,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall581",
       "width": 0.1,
       "height": 0.3,
@@ -406,7 +406,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall593",
       "width": 0.1,
       "height": 0.3,
@@ -421,7 +421,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall594",
       "width": 0.1,
       "height": 0.3,
@@ -436,7 +436,7 @@
       }
     },
     {
-      "type": "wall",
+      "typeName": "wall",
       "id": "Wall595",
       "width": 0.1,
       "height": 0.3,
@@ -453,154 +453,154 @@
   ],
   "robots": [],
   "victims": [],
-  "space-walls": [
+  "spaceWalls": [
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall487"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall490"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall491"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall493"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall494"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall495"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall496"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall504"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall505"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall507"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall509"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall558"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall559"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall560"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall569"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall519"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall577"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall578"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall579"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall581"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall550"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall593"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall594"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall595"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall536"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall521"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall527"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall528"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall529"
     },
     {
-      "type": "space-wall",
+      "typeName": "space-wall",
       "spaceId": "Space497",
       "wallId": "Wall538"
     }
