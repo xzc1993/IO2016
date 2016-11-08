@@ -3,7 +3,7 @@ package com.agh.io.Map
 /**
   * Created by XZC on 11/8/2016.
   */
-case class Wall(
+class Wall(
     typeName: String,
     id: String,
     width: Double,
@@ -11,4 +11,6 @@ case class Wall(
     color: String,
     from: Point,
     to: Point
-)
+){
+
+}
