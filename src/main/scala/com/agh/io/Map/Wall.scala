@@ -4,13 +4,14 @@ package com.agh.io.Map
   * Created by XZC on 11/8/2016.
   */
 class Wall(
-    typeName: String,
-    id: String,
-    width: Double,
-    height: Double,
-    color: String,
-    from: Point,
-    to: Point
+    val typeName: String,
+    val id: String,
+    val width: Double,
+    val height: Double,
+    val color: String,
+    val from: Point,
+    val to: Point
 ){
 
+    val line = LineCalculator.getLineBasedOnTwoPoints(from, to)
 }
