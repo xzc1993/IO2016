@@ -6,4 +6,8 @@ package com.agh.io.Map
 case class Point(
     x: Double,
     y: Double
-)
+){
+    def getDistanceToPoint(a:Point): Double = {
+        Math.sqrt((x - a.x)*(x - a.x) + (y - a.y)*(y - a.y))
+    }
+}

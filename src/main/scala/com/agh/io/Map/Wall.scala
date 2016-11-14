@@ -12,8 +12,9 @@ class Wall(
     val from: Point,
     val to: Point
 ){
-
-    val line = LineCalculator.getLineBasedOnTwoPoints(from, to)
+    def getLine(): Line = {
+        LineCalculator.getLineBasedOnTwoPoints(from, to)
+    }
 
     def getMaxX(): Double = {
         Math.max(to.x, from.x)

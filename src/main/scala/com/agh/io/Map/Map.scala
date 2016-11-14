@@ -26,9 +26,30 @@ class Map(data: MapData) {
         mapHeight
     }
 
-    def findCollisionsWithWalls(line: Line): Unit = {
-        for(currentReadingIndex: Wall <- data.walls.asScala.toArray[Wall] ) {
+    def findCollisionWithWalls(sensorLine: Line, startingPoint: Point): Point = {
+        var bestCollisionPoint: Point = null
+        var collisionPoint: Point = null
+        var collisionDistance: Double = Double.NaN
+        var bestCollisionDistance: Double = Double.PositiveInfinity
+        for(wall: Wall <- data.walls.asScala.toArray[Wall] ) {
+            collisionPoint = LineCalculator.getCrossingPoint(sensorLine, wall.getLine())
+            if( _checkIfCollisionPointIsOnGoodSideOfRobot(sensorLine, collisionPoint, startingPoint)){
+                collisionDistance = collisionPoint.getDistanceToPoint(startingPoint)
+                if( collisionDistance < bestCollisionDistance){
+                    bestCollisionPoint = collisionPoint
+                    bestCollisionDistance = collisionDistance
+                }
+            }
+        }
+        bestCollisionPoint
+    }
 
+    def _checkIfCollisionPointIsOnGoodSideOfRobot(sensorLine: Line, collisionPoint: Point, startingPoint: Point): Boolean = {
+        if( sensorLine.getNormalizedA() < 0.0){
+            (collisionPoint.x >= startingPoint.x)
+        }
+        else{
+            collisionPoint.x <= startingPoint.x
         }
     }
 }

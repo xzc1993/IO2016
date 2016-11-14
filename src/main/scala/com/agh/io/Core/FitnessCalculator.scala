@@ -10,12 +10,15 @@ import com.agh.io.Map.Map
 object FitnessCalculator {
 
     def calculateFitness(map: Map, position: Position, sensorReading: SensorReading): Double = {
+        var error = 0.0
         for(currentReadingIndex: Int <- 0 to 1366 ){
             var sensorReadingLine: Line = LineCalculator.getLineFromPointWithGivenAngle(
                 position.position,
                 position.angle + currentReadingIndex * 0.2
             )
+            var expectedCollisionPoint = map.findCollisionWithWalls(sensorReadingLine, position.position)
+            error += position.position.getDistanceToPoint(expectedCollisionPoint)
         }
-        0.0
+        error
     }
 }
