@@ -12,11 +12,12 @@ object FitnessCalculator {
     def calculateFitness(map: Map, position: Position, sensorReading: SensorReading): Double = {
         var error = 0.0
         for(currentReadingIndex: Int <- 0 to 1366 ){
+            var currentAngle = position.angle + currentReadingIndex * 0.2
             var sensorReadingLine: Line = LineCalculator.getLineFromPointWithGivenAngle(
                 position.position,
-                position.angle + currentReadingIndex * 0.2
+                currentAngle
             )
-            var expectedCollisionPoint = map.findCollisionWithWalls(sensorReadingLine, position.position)
+            var expectedCollisionPoint = map.findCollisionWithWalls(sensorReadingLine, position.position, currentAngle)
             error += position.position.getDistanceToPoint(expectedCollisionPoint)
         }
         error
