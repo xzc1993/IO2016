@@ -9,5 +9,5 @@ object Main extends App {
     val map = new MapLoader(configuration.mapDataFile).load()
     val sensor = new SensorLoader(configuration.sensorDataFile).load()
     println(s"Hello World from node ${configuration.nodeId}")
-    println(sensor.readings(0).distance(5))
+    println(sensor.readings(0).distance.length)
 }

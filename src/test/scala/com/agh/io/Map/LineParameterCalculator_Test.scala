@@ -73,4 +73,22 @@ class LineParameterCalculator_Test extends FlatSpec{
         assert( line.a/(-1) === line.b/1)
         assert( line.a/(-1)=== line.c/1)
     }
+
+    "getCrossingPoint" must "return (0,0)" in {
+        val point = LineCalculator.getCrossingPoint( new Line(-1.0, 1, 0), new Line(1.0, 1, 0))
+        assert( point.x === 0.0)
+        assert( point.y === 0.0)
+    }
+
+    "getCrossingPoint" must "return (5,5)" in {
+        val point = LineCalculator.getCrossingPoint( new Line( 0, 1, -5), new Line(1, 0, -5))
+        assert( point.x === 5.0)
+        assert( point.y === 5.0)
+    }
+
+    "getCrossingPoint" must "return (1,4)" in {
+        val point = LineCalculator.getCrossingPoint( new Line( -1.0, 1, -3), new Line(1.0, 1, -5))
+        assert( point.x === 1.0)
+        assert( point.y === 4.0)
+    }
 }

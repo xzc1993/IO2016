@@ -25,4 +25,10 @@ class Map(data: MapData) {
     def getMapHeight(): Double = {
         mapHeight
     }
+
+    def findCollisionsWithWalls(line: Line): Unit = {
+        for(currentReadingIndex: Wall <- data.walls.asScala.toArray[Wall] ) {
+
+        }
+    }
 }
