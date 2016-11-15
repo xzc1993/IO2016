@@ -30,7 +30,8 @@ class Map(val data: MapData) {
         var bestCollisionDistance: Double = Double.PositiveInfinity
         for(wall: Wall <- data.walls.asScala.toArray[Wall] ) {
             collisionPoint = LineCalculator.getCrossingPoint(sensorLine, wall.getLine())
-            if( _checkIfCollisionPointIsOnGoodSideOfRobot(angle, collisionPoint, startingPoint)){
+            if( _checkIfCollisionPointIsOnGoodSideOfRobot(angle, collisionPoint, startingPoint)
+                && _checkIfCollidedWithWall(wall, collisionPoint)){
                 collisionDistance = collisionPoint.getDistanceToPoint(startingPoint)
                 if( collisionDistance < bestCollisionDistance){
                     bestCollisionPoint = collisionPoint
@@ -42,11 +43,22 @@ class Map(val data: MapData) {
     }
 
     def _checkIfCollisionPointIsOnGoodSideOfRobot(angle: Double, collisionPoint: Point, startingPoint: Point): Boolean = {
-        if( angle >= 90.0 && angle < 270.0){
-            collisionPoint.x <= startingPoint.x
+        if( 0.0 <= angle && angle < 90.0){
+            collisionPoint.x >= startingPoint.x && collisionPoint.y >= startingPoint.y
         }
-        else{
-            collisionPoint.x >= startingPoint.x
+        else if( 90.0 <= angle && angle < 180.0) {
+            collisionPoint.x <= startingPoint.x && collisionPoint.y >= startingPoint.y
         }
+        else if( 180.0 <= angle && angle < 270.0) {
+            collisionPoint.x <= startingPoint.x && collisionPoint.y <= startingPoint.y
+        }
+        else { //if( 270.0 >= angle && angle < 360.0) {
+            collisionPoint.x >= startingPoint.x && collisionPoint.y <= startingPoint.y
+        }
+    }
+
+    def _checkIfCollidedWithWall(wall: Wall, collisionPoint: Point): Boolean = {
+        (wall.getMinX() <= collisionPoint.x && collisionPoint.x <= wall.getMaxX()
+            && wall.getMinY() <= collisionPoint.y && collisionPoint.y <= wall.getMaxY())
     }
 }

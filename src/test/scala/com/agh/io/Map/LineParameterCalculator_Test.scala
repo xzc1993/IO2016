@@ -86,9 +86,9 @@ class LineParameterCalculator_Test extends FlatSpec{
         assert( point.y === 5.0)
     }
 
-    "getCrossingPoint" must "calculate sloped lines crossing at (1,4)" in {
-        val point = LineCalculator.getCrossingPoint( new Line( -1.0, 1, -3), new Line(1.0, 1, -5))
-        assert( point.x === 1.0)
+    "getCrossingPoint" must "calculate sloped and vertical line crossing at (2,4)" in {
+        val point = LineCalculator.getCrossingPoint( new Line( -1.0, 1.0, -2), new Line(1.0, 0, -2))
+        assert( point.x === 2.0)
         assert( point.y === 4.0)
     }
 }

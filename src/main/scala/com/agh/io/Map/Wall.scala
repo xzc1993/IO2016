@@ -12,6 +12,14 @@ class Wall(
         LineCalculator.getLineBasedOnTwoPoints(from, to)
     }
 
+    def getMinX(): Double = {
+        Math.min(to.x, from.x)
+    }
+
+    def getMinY(): Double = {
+        Math.min(to.y, from.y)
+    }
+
     def getMaxX(): Double = {
         Math.max(to.x, from.x)
     }

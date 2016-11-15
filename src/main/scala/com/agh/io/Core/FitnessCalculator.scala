@@ -18,7 +18,8 @@ object FitnessCalculator {
                 currentAngle
             )
             var expectedCollisionPoint = map.findCollisionWithWalls(sensorReadingLine, position.position, currentAngle)
-            errors :+= position.position.getDistanceToPoint(expectedCollisionPoint)
+            if (expectedCollisionPoint != null)
+                errors :+= position.position.getDistanceToPoint(expectedCollisionPoint)
         }
         _calculateMeanSquaredError(errors)
     }

@@ -43,10 +43,11 @@ object LineCalculator {
     }
 
     def _calculateIntersectionWithVerticalLine(line: Line, verticalLine: Line): Point = {
-        val x: Double = verticalLine.c/verticalLine.a
-        new Point(
-            -x,
+        val x: Double = (-verticalLine.c)/verticalLine.a
+        val y: Point = new Point(
+            x,
             line.getNormalizedA() * x + line.getNormalizedC()
         )
+        y
     }
 }
