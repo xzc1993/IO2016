@@ -1,4 +1,4 @@
-## Intelignecja Obliczeniowa 2016
+## Inteligencja Obliczeniowa 2016
 
 # Opracowanie benchmarku dla lokalizacji robotów mobilnych w budynku
 
