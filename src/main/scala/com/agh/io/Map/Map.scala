@@ -29,13 +29,14 @@ class Map(val data: MapData) {
         var collisionDistance: Double = Double.NaN
         var bestCollisionDistance: Double = Double.PositiveInfinity
         for(wall: Wall <- data.walls.asScala.toArray[Wall] ) {
-            collisionPoint = LineCalculator.getCrossingPoint(sensorLine, wall.getLine())
-            if( _checkIfCollisionPointIsOnGoodSideOfRobot(angle, collisionPoint, startingPoint)
-                && _checkIfCollidedWithWall(wall, collisionPoint)){
-                collisionDistance = collisionPoint.getDistanceToPoint(startingPoint)
-                if( collisionDistance < bestCollisionDistance){
-                    bestCollisionPoint = collisionPoint
-                    bestCollisionDistance = collisionDistance
+            LineCalculator.getCrossingPoint(sensorLine, wall.getLine()).foreach { collisionPoint =>
+                if( _checkIfCollisionPointIsOnGoodSideOfRobot(angle, collisionPoint, startingPoint)
+                    && _checkIfCollidedWithWall(wall, collisionPoint)){
+                    collisionDistance = collisionPoint.getDistanceToPoint(startingPoint)
+                    if( collisionDistance < bestCollisionDistance){
+                        bestCollisionPoint = collisionPoint
+                        bestCollisionDistance = collisionDistance
+                    }
                 }
             }
         }
