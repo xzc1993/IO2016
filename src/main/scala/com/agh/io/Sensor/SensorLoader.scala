@@ -10,7 +10,10 @@ class SensorLoader(sensorDataFile: File){
         for (line <- bufferedSource.getLines) {
             val cols = line.split(";").map(_.trim)
             val dateTime = cols(0)
-            data :+= new SensorScan(dateTime, cols.drop(1).map(x => x.toDouble))
+            val readings = cols.drop(3) // 1 and 2 are some unknown data
+            data :+= new SensorScan(dateTime, readings.sliding(2, 2).collect({
+                case Array(distance, angle) => SensorReading(angle.toDouble, distance.toDouble)
+            }).toArray)
         }
         bufferedSource.close
         new Sensor(data)
