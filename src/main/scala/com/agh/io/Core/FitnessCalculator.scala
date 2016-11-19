@@ -1,7 +1,7 @@
 package com.agh.io.Core
 
 import com.agh.io.Map.{Line, LineCalculator}
-import com.agh.io.Sensor.SensorReading
+import com.agh.io.Sensor.SensorScan
 import com.agh.io.Map.Map
 
 /**
@@ -9,7 +9,7 @@ import com.agh.io.Map.Map
   */
 object FitnessCalculator {
 
-    def calculateFitness(map: Map, position: Position, sensorReading: SensorReading): Double = {
+    def calculateFitness(map: Map, position: Position, sensorScan: SensorScan): Double = {
         var errors: Array[Double] = new Array[Double](0)
         for(currentReadingIndex: Int <- 0 to 1366 ){
             var currentAngle = position.angle + currentReadingIndex * 0.2
