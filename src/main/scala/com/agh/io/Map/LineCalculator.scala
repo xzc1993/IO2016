@@ -9,10 +9,11 @@ object LineCalculator {
     def getLineFromPointWithGivenAngle(point: Point, angle: Double): Line ={
         if( angle != 90.0){
             val a = Math.tan(Math.toRadians(angle))
-            new Line( a, 1.0, -(a * point.x + point.y))
+            val A = -a
+            new Line(A, 1.0, -(A * point.x + point.y))
         }
         else{
-            new Line( 1.0, 0.0, point.x)
+            new Line(-1.0, 0.0, point.x)
         }
     }
 
@@ -44,10 +45,9 @@ object LineCalculator {
 
     def _calculateIntersectionWithVerticalLine(line: Line, verticalLine: Line): Option[Point] = {
         val x = (-verticalLine.c)/verticalLine.a
-        val y = Some(Point(
+        Some(Point(
             x,
             line.getNormalizedA() * x + line.getNormalizedC()
         ))
-        y
     }
 }

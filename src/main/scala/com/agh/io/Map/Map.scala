@@ -23,13 +23,14 @@ class Map(val data: MapData) {
         findMaxY(data.walls.asScala.toArray[Wall])
     }
 
-    def findCollisionWithWalls(sensorLine: Line, startingPoint: Point, angle: Double): Point = {
+    def findCollisionWithWalls(sensorLine: Line, startingPoint: Point, angle: Double): Option[Point] = {
         var bestCollisionPoint: Point = null
         var collisionPoint: Point = null
         var collisionDistance: Double = Double.NaN
         var bestCollisionDistance: Double = Double.PositiveInfinity
         for(wall: Wall <- data.walls.asScala.toArray[Wall] ) {
-            LineCalculator.getCrossingPoint(sensorLine, wall.getLine()).foreach { collisionPoint =>
+            LineCalculator.getCrossingPoint(sensorLine, wall.getLine()).foreach {
+                collisionPoint =>
                 if( _checkIfCollisionPointIsOnGoodSideOfRobot(angle, collisionPoint, startingPoint)
                     && _checkIfCollidedWithWall(wall, collisionPoint)){
                     collisionDistance = collisionPoint.getDistanceToPoint(startingPoint)
@@ -40,7 +41,7 @@ class Map(val data: MapData) {
                 }
             }
         }
-        bestCollisionPoint
+        Option(bestCollisionPoint)
     }
 
     def _checkIfCollisionPointIsOnGoodSideOfRobot(angle: Double, collisionPoint: Point, startingPoint: Point): Boolean = {

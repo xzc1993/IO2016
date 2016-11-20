@@ -40,38 +40,38 @@ class LineParameterCalculator_Test extends FlatSpec{
 
     it must "return flat vertical line" in {
         val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(1.0, 0.0), 90.0)
-        assert( line.a/1 === line.c/1)
+        assert( line.a/(-1) === line.c/1)
         assert( line.b === 0.0)
     }
 
-    it must "return flat x + y + 0 = 0 line" in {
-        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 45.0)
-        assert( line.a/1 === line.b/1)
-        assert( line.c === 0.0)
-    }
-
-    it must "also return flat x + y + 0 = 0 line" in {
-        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 225.0)
-        assert( line.a/1 === line.b/1)
-        assert( line.c === 0.0)
-    }
-
     it must "return flat -x + y + 0 = 0 line" in {
-        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 135.0)
+        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 45.0)
         assert( line.a/(-1) === line.b/1)
         assert( line.c === 0.0)
     }
 
     it must "also return flat -x + y + 0 = 0 line" in {
-        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 315.0)
+        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 225.0)
         assert( line.a/(-1) === line.b/1)
         assert( line.c === 0.0)
     }
 
-    it must "also return flat -x + y + 1 = 0 line" in {
+    it must "return flat x + y + 0 = 0 line" in {
+        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 135.0)
+        assert( line.a/1 === line.b/1)
+        assert( line.c === 0.0)
+    }
+
+    it must "also return flat x + y + 0 = 0 line" in {
+        val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(0.0, 0.0), 315.0)
+        assert( line.a/1 === line.b/1)
+        assert( line.c === 0.0)
+    }
+
+    it must "return flat x + y - 3 = 0 line" in {
         val line = LineCalculator.getLineFromPointWithGivenAngle( new Point(2.0, 1.0), 315.0)
-        assert( line.a/(-1) === line.b/1)
-        assert( line.a/(-1)=== line.c/1)
+        assert( line.a/1 === line.b/1)
+        assert( line.c/1 === -3.0)
     }
 
     "getCrossingPoint" must "calculate sloped lines crossing at (0,0)" in {

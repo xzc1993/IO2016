@@ -8,30 +8,25 @@ import com.agh.io.Map.Map
   * Created by XZC on 11/8/2016.
   */
 object FitnessCalculator {
+    private val NoWallPenalty = 5000.0
 
     def calculateFitness(map: Map, position: Position, sensorScan: SensorScan): Double = {
-        var errors: Array[Double] = new Array[Double](0)
-        for(currentReadingIndex: Int <- 0 to 1366 ){
-            var currentAngle = position.angle + currentReadingIndex * 0.2
-            var sensorReadingLine: Line = LineCalculator.getLineFromPointWithGivenAngle(
-                position.position,
-                currentAngle
-            )
-            var expectedCollisionPoint = map.findCollisionWithWalls(sensorReadingLine, position.position, currentAngle)
-            if (expectedCollisionPoint != null)
-                errors :+= position.position.getDistanceToPoint(expectedCollisionPoint)
-        }
-        _calculateMeanSquaredError(errors)
+        val errors = sensorScan.readings.map(reading => {
+            val currentAngle = normalizeAngle(position.angle + reading.angle)
+            val theoreticalReadingLine = LineCalculator.getLineFromPointWithGivenAngle(position.position, currentAngle)
+            val maybeCollisionPoint = map.findCollisionWithWalls(theoreticalReadingLine, position.position, currentAngle)
+            maybeCollisionPoint.map(_.getDistanceToPoint(position.position) - reading.distance).getOrElse(NoWallPenalty)
+        })
+        calculateMeanSquaredError(errors)
     }
 
-    def _calculateMeanSquaredError(errors: Array[Double]): Double = {
-        val mse = errors
-            .map { error:Double => error*error
-            }
-        var result: Double = 0.0
-        for( error <- mse){
-            result += error
-        }
-        math.sqrt(result)
+    private def normalizeAngle(angle: Double): Double = {
+        var angleToNormalize = angle
+        while (angleToNormalize < 0.0) angleToNormalize += 360.0
+        angleToNormalize % 360.0
+    }
+
+    private def calculateMeanSquaredError(errors: Array[Double]): Double = {
+        math.sqrt(errors.map(e => e * e).sum / errors.length)
     }
 }
