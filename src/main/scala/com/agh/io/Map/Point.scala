@@ -10,4 +10,6 @@ case class Point(
     def getDistanceToPoint(a:Point): Double = {
         Math.sqrt((x - a.x)*(x - a.x) + (y - a.y)*(y - a.y))
     }
+
+    def scale(factor: Double): Point = Point(x = x * factor, y = y * factor)
 }

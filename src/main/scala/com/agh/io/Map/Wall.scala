@@ -27,4 +27,6 @@ class Wall(
     def getMaxY(): Double = {
         Math.max(to.y, from.y)
     }
+
+    def scale(factor: Double): Wall = new Wall(from = from.scale(factor), to = to.scale(factor))
 }

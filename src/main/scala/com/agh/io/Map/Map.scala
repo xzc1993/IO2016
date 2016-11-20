@@ -2,6 +2,7 @@ package com.agh.io.Map
 import scala.collection.JavaConverters._
 
 class Map(val data: MapData) {
+    import com.agh.io.Util.MathUtils._
 
     def findMaxX(a: Array[Wall]) : Double = {
         a.foldLeft(a(0).getMaxX()) {
@@ -46,21 +47,21 @@ class Map(val data: MapData) {
 
     def _checkIfCollisionPointIsOnGoodSideOfRobot(angle: Double, collisionPoint: Point, startingPoint: Point): Boolean = {
         if( 0.0 <= angle && angle < 90.0){
-            collisionPoint.x >= startingPoint.x && collisionPoint.y >= startingPoint.y
+            collisionPoint.x >=~ startingPoint.x && collisionPoint.y >=~ startingPoint.y
         }
         else if( 90.0 <= angle && angle < 180.0) {
-            collisionPoint.x <= startingPoint.x && collisionPoint.y >= startingPoint.y
+            collisionPoint.x <=~ startingPoint.x && collisionPoint.y >=~ startingPoint.y
         }
         else if( 180.0 <= angle && angle < 270.0) {
-            collisionPoint.x <= startingPoint.x && collisionPoint.y <= startingPoint.y
+            collisionPoint.x <=~ startingPoint.x && collisionPoint.y <=~ startingPoint.y
         }
         else { //if( 270.0 >= angle && angle < 360.0) {
-            collisionPoint.x >= startingPoint.x && collisionPoint.y <= startingPoint.y
+            collisionPoint.x >=~ startingPoint.x && collisionPoint.y <=~ startingPoint.y
         }
     }
 
     def _checkIfCollidedWithWall(wall: Wall, collisionPoint: Point): Boolean = {
-        (wall.getMinX() <= collisionPoint.x && collisionPoint.x <= wall.getMaxX()
-            && wall.getMinY() <= collisionPoint.y && collisionPoint.y <= wall.getMaxY())
+        (wall.getMinX() <=~ collisionPoint.x && collisionPoint.x <=~ wall.getMaxX()
+            && wall.getMinY() <=~ collisionPoint.y && collisionPoint.y <=~ wall.getMaxY())
     }
 }
