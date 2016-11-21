@@ -1,24 +1,27 @@
 package com.agh.io.Core
 
-import com.agh.io.Map.{Line, LineCalculator}
+import com.agh.io.Configuration.SensorParameters
+import com.agh.io.Map.{LineCalculator, Map}
 import com.agh.io.Sensor.SensorScan
-import com.agh.io.Map.Map
 
 /**
   * Created by XZC on 11/8/2016.
   */
-object FitnessCalculator {
-    private val NoWallReading = 5000.0
-
+class FitnessCalculator(sensorParameters: SensorParameters) {
     def calculateFitness(map: Map, position: Position, sensorScan: SensorScan): Double = {
-        val theoreticalDistanceReadings = sensorScan.readings.map(reading => {
-            val currentAngle = normalizeAngle(position.angle + reading.angle)
+        val angles = sensorScan.readings.map(_.angle)
+        val theoreticalDistanceReadings = angles.map(angle => {
+            val currentAngle = normalizeAngle(position.angle + angle)
             val theoreticalReadingLine = LineCalculator.getLineFromPointWithGivenAngle(position.position, currentAngle)
             val maybeCollisionPoint = map.findCollisionWithWalls(theoreticalReadingLine, position.position, currentAngle)
-            maybeCollisionPoint.map(_.getDistanceToPoint(position.position)).getOrElse(NoWallReading)
+            maybeCollisionPoint.map(_.getDistanceToPoint(position.position)).getOrElse(InfiniteDistance)
         })
-        val distanceReadingErrors = theoreticalDistanceReadings.zip(sensorScan.readings).map({
-            case (theoreticalDistanceReading, realReading) => theoreticalDistanceReading - realReading.distance
+        val normalizedTheoreticalDistanceReadings = theoreticalDistanceReadings.map(normalizeDistance(InfiniteDistance))
+        val normalizedRealDistanceReadings = sensorScan.readings.map(_.distance)
+            .map(normalizeDistance(sensorParameters.infiniteDistanceReadingValue))
+
+        val distanceReadingErrors = normalizedTheoreticalDistanceReadings.zip(normalizedRealDistanceReadings).map({
+            case (theoretical, real) => theoretical - real
         })
         calculateMeanSquaredError(distanceReadingErrors)
     }
@@ -29,7 +32,16 @@ object FitnessCalculator {
         angleToNormalize % 360.0
     }
 
+    private def normalizeDistance(infiniteDistanceValue: Double): (Double) => Double = distance => {
+        if (distance == infiniteDistanceValue) sensorParameters.upperDistanceAccuracyThreshold
+        else if (distance < sensorParameters.lowerDistanceAccuracyThreshold) sensorParameters.lowerDistanceAccuracyThreshold
+        else if (distance > sensorParameters.upperDistanceAccuracyThreshold) sensorParameters.upperDistanceAccuracyThreshold
+        else distance
+    }
+
     private def calculateMeanSquaredError(errors: Array[Double]): Double = {
         math.sqrt(errors.map(e => e * e).sum / errors.length)
     }
+
+    private val InfiniteDistance = Double.PositiveInfinity
 }

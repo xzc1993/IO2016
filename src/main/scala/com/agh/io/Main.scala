@@ -10,12 +10,14 @@ object Main extends App {
     val configuration = new CommandLineParser().load(args)
     val map = new MapLoader(configuration.mapDataFile).load()
     val sensor = new SensorLoader(configuration.sensorDataFile).load()
+    val fitnessCalculator = new FitnessCalculator(configuration.sensorParameters)
+
     println(s"Hello World from node ${configuration.nodeId}")
 
     while(spacetimeContinuummIsInCheck){
         val position = PositionRandomizer.getRandomPositionOnMap(map)
         print(s"Calculating fitness for position: (${position.position.x},${position.position.y}) and angle ${position.angle}... ")
-        println(s"Done. Result: ${FitnessCalculator.calculateFitness(map, position, sensor.scans(0))}")
+        println(s"Done. Result: ${fitnessCalculator.calculateFitness(map, position, sensor.scans(0))}")
     }
 
 }

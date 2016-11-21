@@ -17,6 +17,15 @@ class CommandLineParser {
             opt[File]('m', "map").required().valueName("<file>").action({ (x, c) =>
                 c.copy(mapDataFile = x)
             }).text("File containing map.")
+            opt[Double]("lowerDistanceAccuracyThreshold").action({ (x, c) =>
+                c.copy(sensorParameters = c.sensorParameters.copy(lowerDistanceAccuracyThreshold = x))
+            }).text("The minimum value of an accurate sensor reading (millimeters).")
+            opt[Double]("upperDistanceAccuracyThreshold").action({ (x, c) =>
+                c.copy(sensorParameters = c.sensorParameters.copy(upperDistanceAccuracyThreshold = x))
+            }).text("The maximum value of an accurate sensor reading (millimeters).")
+            opt[Double]("infiniteDistanceReadingValue").action({ (x, c) =>
+                c.copy(sensorParameters = c.sensorParameters.copy(infiniteDistanceReadingValue = x))
+            }).text("The value of a sensor reading when the obstacles are out of range (millimeters).")
         }
         val config: Configuration = parser.parse(args, Configuration()).orNull
         if (config == null) {
