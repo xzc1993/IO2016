@@ -13,7 +13,7 @@ object Main extends App {
     println(s"Hello World from node ${configuration.nodeId}")
 
     while(spacetimeContinuummIsInCheck){
-        var position = PositionRandomizer.getRandomPositionOnMap(map)
+        val position = PositionRandomizer.getRandomPositionOnMap(map)
         print(s"Calculating fitness for position: (${position.position.x},${position.position.y}) and angle ${position.angle}... ")
         println(s"Done. Result: ${FitnessCalculator.calculateFitness(map, position, sensor.scans(0))}")
     }

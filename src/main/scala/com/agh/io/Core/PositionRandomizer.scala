@@ -13,6 +13,6 @@ object PositionRandomizer {
     val random = new Random(11)
 
     def getRandomPositionOnMap(map: Map): Position = {
-        new Position( new Point( random.nextDouble() * map.getMapWidth(), random.nextDouble() * map.getMapHeight()), random.nextDouble() * 360)
+        Position(Point(random.nextDouble() * map.getMapWidth, random.nextDouble() * map.getMapHeight), random.nextDouble() * 360)
     }
 }

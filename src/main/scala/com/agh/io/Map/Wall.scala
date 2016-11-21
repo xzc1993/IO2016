@@ -3,11 +3,7 @@ package com.agh.io.Map
 /**
   * Created by XZC on 11/8/2016.
   */
-class Wall(
-
-    val from: Point,
-    val to: Point
-){
+case class Wall(from: Point, to: Point) {
     def getLine(): Line = {
         LineCalculator.getLineBasedOnTwoPoints(from, to)
     }
@@ -28,5 +24,5 @@ class Wall(
         Math.max(to.y, from.y)
     }
 
-    def scale(factor: Double): Wall = new Wall(from = from.scale(factor), to = to.scale(factor))
+    def scale(factor: Double): Wall = Wall(from = from.scale(factor), to = to.scale(factor))
 }

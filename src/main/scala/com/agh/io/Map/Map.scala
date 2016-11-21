@@ -1,35 +1,18 @@
 package com.agh.io.Map
-import scala.collection.JavaConverters._
 
 class Map(val data: MapData) {
     import com.agh.io.Util.MathUtils._
 
-    def findMaxX(a: Array[Wall]) : Double = {
-        a.foldLeft(a(0).getMaxX()) {
-            case (max, e) => Math.max(max, e.getMaxX())
-        }
-    }
+    def getMapWidth: Double = data.walls.map(_.getMaxX()).max
 
-    def findMaxY(a: Array[Wall]) : Double = {
-        a.foldLeft(a(0).getMaxY()) {
-            case (max, e) => Math.max(max, e.getMaxY())
-        }
-    }
-
-    def getMapWidth(): Double = {
-        findMaxX(data.walls.asScala.toArray[Wall])
-    }
-
-    def getMapHeight(): Double = {
-        findMaxY(data.walls.asScala.toArray[Wall])
-    }
+    def getMapHeight: Double = data.walls.map(_.getMaxY()).max
 
     def findCollisionWithWalls(sensorLine: Line, startingPoint: Point, angle: Double): Option[Point] = {
         var bestCollisionPoint: Point = null
         var collisionPoint: Point = null
         var collisionDistance: Double = Double.NaN
         var bestCollisionDistance: Double = Double.PositiveInfinity
-        for(wall: Wall <- data.walls.asScala.toArray[Wall] ) {
+        for (wall <- data.walls) {
             LineCalculator.getCrossingPoint(sensorLine, wall.getLine()).foreach {
                 collisionPoint =>
                 if( _checkIfCollisionPointIsOnGoodSideOfRobot(angle, collisionPoint, startingPoint)
