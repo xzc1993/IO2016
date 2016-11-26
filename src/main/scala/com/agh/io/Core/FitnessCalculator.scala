@@ -40,7 +40,7 @@ class FitnessCalculator(sensorParameters: SensorParameters) {
     }
 
     private def calculateMeanSquaredError(errors: Array[Double]): Double = {
-        math.sqrt(errors.map(e => e * e).sum / errors.length)
+        errors.map(e => e * e).sum / errors.length
     }
 
     private val InfiniteDistance = Double.PositiveInfinity
