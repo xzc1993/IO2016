@@ -14,16 +14,20 @@ object Main extends App {
 
     println(s"Hello World from node ${configuration.nodeId}")
 
+    val sensorScan = sensor.scans(0)
     var guessNo = 0
     var bestFitness = Double.PositiveInfinity
 
-    while(spacetimeContinuummIsInCheck){
+    while (spacetimeContinuummIsInCheck) {
         guessNo += 1
         val position = PositionRandomizer.getRandomPositionOnMap(map)
-        val fitness = fitnessCalculator.calculateFitness(map, position, sensor.scans(0))
+        val fitness = fitnessCalculator.calculateFitness(map, position, sensorScan)
         if (fitness < bestFitness) {
             bestFitness = fitness
-            println(f"guess: $guessNo%9d, position: (${position.position.x}%6.1f, ${position.position.y}%6.1f), angle: ${position.angle}%6.2f, fitness: $fitness%9.1f")
+            val errorStats = fitnessCalculator.calculateErrorStats(map, position, sensorScan)
+            println(f"guess: $guessNo%9d, position: (${position.position.x}%6.1f, ${position.position.y}%6.1f), angle: ${position.angle}%6.2f, " +
+                f"fitness: $fitness%9.1f, min. error: ${errorStats.min}%6.1f, max. error: ${errorStats.max}%6.1f, " +
+                f"mean error: ${errorStats.mean}%6.1f, error stddev: ${errorStats.stdDev}%6.1f")
         }
     }
 }

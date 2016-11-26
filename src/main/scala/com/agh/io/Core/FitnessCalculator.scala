@@ -9,6 +9,11 @@ import com.agh.io.Sensor.SensorScan
   */
 class FitnessCalculator(sensorParameters: SensorParameters) {
     def calculateFitness(map: Map, position: Position, sensorScan: SensorScan): Double = {
+        val distanceReadingErrors = calculateDistanceReadingErrors(map, position, sensorScan)
+        calculateMeanSquaredError(distanceReadingErrors)
+    }
+
+    private def calculateDistanceReadingErrors(map: Map, position: Position, sensorScan: SensorScan): Array[Double] = {
         val angles = sensorScan.readings.map(_.angle)
         val theoreticalDistanceReadings = angles.map(angle => {
             val currentAngle = normalizeAngle(position.angle + angle)
@@ -20,10 +25,9 @@ class FitnessCalculator(sensorParameters: SensorParameters) {
         val normalizedRealDistanceReadings = sensorScan.readings.map(_.distance)
             .map(normalizeDistance(sensorParameters.infiniteDistanceReadingValue))
 
-        val distanceReadingErrors = normalizedTheoreticalDistanceReadings.zip(normalizedRealDistanceReadings).map({
-            case (theoretical, real) => theoretical - real
+        normalizedTheoreticalDistanceReadings.zip(normalizedRealDistanceReadings).map({
+            case (theoretical, real) => math.abs(theoretical - real)
         })
-        calculateMeanSquaredError(distanceReadingErrors)
     }
 
     private def normalizeAngle(angle: Double): Double = {
@@ -43,5 +47,21 @@ class FitnessCalculator(sensorParameters: SensorParameters) {
         errors.map(e => e * e).sum / errors.length
     }
 
+    def calculateErrorStats(map: Map, position: Position, sensorScan: SensorScan): Stats = {
+        val distanceReadingErrors = calculateDistanceReadingErrors(map, position, sensorScan)
+        Stats.calculate(distanceReadingErrors)
+    }
+
     private val InfiniteDistance = Double.PositiveInfinity
+}
+
+case class Stats(min: Double, max: Double, mean: Double, stdDev: Double)
+
+object Stats {
+    def calculate(series: Seq[Double]): Stats = {
+        val mean = series.sum / series.length
+        val variances = series.map(x => (x - mean) * (x - mean))
+        val stdDev = Math.sqrt(variances.sum / variances.length)
+        Stats(series.min, series.max, mean, stdDev)
+    }
 }
