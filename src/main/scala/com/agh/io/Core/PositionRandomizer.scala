@@ -10,7 +10,7 @@ import scala.util.Random
   */
 object PositionRandomizer {
 
-    val random = new Random(11)
+    val random = new Random()
 
     def getRandomPositionOnMap(map: Map): Position = {
         Position(Point(random.nextDouble() * map.getMapWidth, random.nextDouble() * map.getMapHeight), random.nextDouble() * 360)

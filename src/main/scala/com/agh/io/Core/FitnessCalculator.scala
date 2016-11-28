@@ -13,7 +13,7 @@ class FitnessCalculator(sensorParameters: SensorParameters) {
         calculateMeanSquaredError(distanceReadingErrors)
     }
 
-    private def calculateDistanceReadingErrors(map: Map, position: Position, sensorScan: SensorScan): Array[Double] = {
+    def calculateDistanceReadingErrors(map: Map, position: Position, sensorScan: SensorScan): Array[Double] = {
         val angles = sensorScan.readings.map(_.angle)
         val theoreticalDistanceReadings = angles.map(angle => {
             val currentAngle = normalizeAngle(position.angle + angle)
