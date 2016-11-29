@@ -6,7 +6,7 @@ import org.apache.commons.math3.ml.clustering.{Clusterable, DBSCANClusterer}
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
-class Clusterer(val map: Map) {
+class Clusterer(map: Map) {
     private val Epsilon = 20.0 // TODO parameterize if needed
     private val MinClusterSize = 1
     private val IncludeOutliers = true

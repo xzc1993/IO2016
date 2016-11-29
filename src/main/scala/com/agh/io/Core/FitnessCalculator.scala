@@ -8,26 +8,34 @@ import com.agh.io.Sensor.SensorScan
   * Created by XZC on 11/8/2016.
   */
 class FitnessCalculator(sensorScan: SensorScan, sensorParameters: SensorParameters, map: Map) {
+    private val normalizedRealDistanceReadings = sensorScan.readings
+        .map(_.distance) // making a copy
+        .transform(normalizeDistance(sensorParameters.infiniteDistanceReadingValue))
+
     def calculateFitness(position: Position): Double = {
         val distanceReadingErrors = calculateDistanceReadingErrors(position)
         calculateMeanSquaredError(distanceReadingErrors)
     }
 
     def calculateDistanceReadingErrors(position: Position): Array[Double] = {
-        val angles = sensorScan.readings.map(_.angle)
-        val theoreticalDistanceReadings = angles.map(angle => {
-            val currentAngle = normalizeAngle(position.angle + angle)
-            val theoreticalReadingLine = LineCalculator.getLineFromPointWithGivenAngle(position.point, currentAngle)
-            val maybeCollisionPoint = map.findCollisionWithWalls(theoreticalReadingLine, position.point, currentAngle)
-            maybeCollisionPoint.map(_.getDistanceToPoint(position.point)).getOrElse(InfiniteDistance)
-        })
-        val normalizedTheoreticalDistanceReadings = theoreticalDistanceReadings.map(normalizeDistance(InfiniteDistance))
-        val normalizedRealDistanceReadings = sensorScan.readings.map(_.distance)
-            .map(normalizeDistance(sensorParameters.infiniteDistanceReadingValue))
+        val normalizedTheoreticalDistanceReadings = sensorScan.readings.map(_.angle) // making a copy
+            .transform(
+            angle => {
+                val currentAngle = normalizeAngle(position.angle + angle)
+                val theoreticalReadingLine = LineCalculator.getLineFromPointWithGivenAngle(position.point, currentAngle)
+                val maybeCollisionPoint = map.findCollisionWithWalls(theoreticalReadingLine, position.point, currentAngle)
+                val theoreticalDistance = maybeCollisionPoint.map(_.getDistanceToPoint(position.point)).getOrElse(InfiniteDistance)
+                normalizeDistance(InfiniteDistance)(theoreticalDistance)
+            }
+        )
 
-        normalizedTheoreticalDistanceReadings.zip(normalizedRealDistanceReadings).map({
-            case (theoretical, real) => math.abs(theoretical - real)
-        })
+        val distanceReadingErrors = normalizedTheoreticalDistanceReadings // for readability
+        for (i <- distanceReadingErrors.indices) {
+            val theoretical = normalizedTheoreticalDistanceReadings(i)
+            val real = normalizedRealDistanceReadings(i)
+            distanceReadingErrors(i) = math.abs(theoretical - real)
+        }
+        distanceReadingErrors.toArray
     }
 
     private def normalizeAngle(angle: Double): Double = {
