@@ -8,7 +8,7 @@ class Annealer(val map: Map, val fitnessCalculator: FitnessCalculator) {
     private val StartTemperature = 100000.0
     private val MinTemperature = 0.5
     private val CoolingFactor = 0.9999
-    private val MovingRange = 5.0
+    private val MovingRange = 5.0 // TODO optimize these, parameterize?
 
     def anneal(position: RatedPosition): RatedPosition = {
         var temperature = StartTemperature
@@ -42,7 +42,7 @@ class Annealer(val map: Map, val fitnessCalculator: FitnessCalculator) {
         do {
             val xMove = randomMove() * widthFactor
             val yMove = randomMove() * heightFactor
-            newPoint = Point(position.position.position.x + xMove, position.position.position.y + yMove)
+            newPoint = Point(position.position.point.x + xMove, position.position.point.y + yMove)
         } while (isOutsideMap(newPoint))
         val newPosition = Position(newPoint, position.position.angle + randomMove())
         RatedPosition(newPosition, fitnessCalculator.calculateFitness(newPosition))

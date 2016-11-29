@@ -17,9 +17,9 @@ class FitnessCalculator(sensorScan: SensorScan, sensorParameters: SensorParamete
         val angles = sensorScan.readings.map(_.angle)
         val theoreticalDistanceReadings = angles.map(angle => {
             val currentAngle = normalizeAngle(position.angle + angle)
-            val theoreticalReadingLine = LineCalculator.getLineFromPointWithGivenAngle(position.position, currentAngle)
-            val maybeCollisionPoint = map.findCollisionWithWalls(theoreticalReadingLine, position.position, currentAngle)
-            maybeCollisionPoint.map(_.getDistanceToPoint(position.position)).getOrElse(InfiniteDistance)
+            val theoreticalReadingLine = LineCalculator.getLineFromPointWithGivenAngle(position.point, currentAngle)
+            val maybeCollisionPoint = map.findCollisionWithWalls(theoreticalReadingLine, position.point, currentAngle)
+            maybeCollisionPoint.map(_.getDistanceToPoint(position.point)).getOrElse(InfiniteDistance)
         })
         val normalizedTheoreticalDistanceReadings = theoreticalDistanceReadings.map(normalizeDistance(InfiniteDistance))
         val normalizedRealDistanceReadings = sensorScan.readings.map(_.distance)

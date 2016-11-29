@@ -16,7 +16,7 @@ object Main extends App {
     val clusterer = new Clusterer(map)
     val annealer = new Annealer(map, fitnessCalculator)
 
-    val IterationCount = 50000
+    val IterationCount = 500000 // TODO optimize; as params?
     val AcceptableGuessThreshold = 1.1
 
     def computeHypothesisClusters = {
@@ -40,7 +40,7 @@ object Main extends App {
                 }
             }
 
-            if (guessNo % 10000 == 0) {
+            if (guessNo % 10000 == 0) { // TODO proper logging?
                 println(f"guess: $guessNo%9d, acceptable guess count: ${guessesByWorst.length}%6d")
                 println
 
@@ -65,7 +65,7 @@ object Main extends App {
 
     def printPositionStats(map: Map, position: RatedPosition, sensorScan: SensorScan) = {
         val errorStats = fitnessCalculator.calculateErrorStats(position.position)
-        println(f"position: (${position.position.position.x}%6.1f, ${position.position.position.y}%6.1f), " +
+        println(f"position: (${position.position.point.x}%6.1f, ${position.position.point.y}%6.1f), " +
             f"angle: ${position.position.angle}%6.2f, fitness: ${position.fitness}%9.1f, " +
             f"min error: ${errorStats.min}%6.1f, max error: ${errorStats.max}%6.1f, " +
             f"mean error: ${errorStats.mean}%6.1f, error stddev: ${errorStats.stdDev}%6.1f")
@@ -84,7 +84,7 @@ object Main extends App {
 //    val clusters = Seq(c40, c08, c05, c03).map(c => Cluster(c.map(p => RatedPosition(p, fitnessCalculator.calculateFitness(p)))))
 
     clusters.foreach(cluster => {
-        val centroid = cluster.centroid
+        val centroid = cluster.centroid // TODO take best sample(s) from the cluster instead of the centroid?
         val ratedCentroid = RatedPosition(centroid, fitnessCalculator.calculateFitness(centroid))
         val annealedPosition = annealer.anneal(ratedCentroid)
         println(s"centroid before annealing: $ratedCentroid")

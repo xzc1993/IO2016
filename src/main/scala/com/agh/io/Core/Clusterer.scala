@@ -7,7 +7,7 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 class Clusterer(val map: Map) {
-    private val Epsilon = 20.0
+    private val Epsilon = 20.0 // TODO parameterize if needed
     private val MinClusterSize = 1
     private val IncludeOutliers = true
 
@@ -28,8 +28,8 @@ class Clusterer(val map: Map) {
 
     private case class ClusteringWrapper(ratedPosition: RatedPosition) extends Clusterable {
         val normalizedPoint = Array(
-            (ratedPosition.position.position.x / map.getMapWidth) * 360.0,
-            (ratedPosition.position.position.y / map.getMapHeight) * 360.0,
+            (ratedPosition.position.point.x / map.getMapWidth) * 360.0,
+            (ratedPosition.position.point.y / map.getMapHeight) * 360.0,
             ratedPosition.position.angle
         )
         override def getPoint = normalizedPoint
