@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
     "com.github.scopt" %% "scopt" % "3.4.0",
     "io.spray" %% "spray-json" % "1.3.2",
     "org.scalatest" %% "scalatest" % "2.2.6" % "test",
+    "org.apache.commons" % "commons-math3" % "3.6.1",
     "org.springframework" % "spring-context" % "4.2.5.RELEASE",
     "org.springframework" % "spring-aspects" % "4.2.5.RELEASE",
     "javax.inject" % "javax.inject" % "1"
