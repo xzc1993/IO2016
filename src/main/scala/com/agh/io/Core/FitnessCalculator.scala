@@ -7,13 +7,13 @@ import com.agh.io.Sensor.SensorScan
 /**
   * Created by XZC on 11/8/2016.
   */
-class FitnessCalculator(sensorParameters: SensorParameters) {
-    def calculateFitness(map: Map, position: Position, sensorScan: SensorScan): Double = {
-        val distanceReadingErrors = calculateDistanceReadingErrors(map, position, sensorScan)
+class FitnessCalculator(sensorScan: SensorScan, sensorParameters: SensorParameters, map: Map) {
+    def calculateFitness(position: Position): Double = {
+        val distanceReadingErrors = calculateDistanceReadingErrors(position)
         calculateMeanSquaredError(distanceReadingErrors)
     }
 
-    def calculateDistanceReadingErrors(map: Map, position: Position, sensorScan: SensorScan): Array[Double] = {
+    def calculateDistanceReadingErrors(position: Position): Array[Double] = {
         val angles = sensorScan.readings.map(_.angle)
         val theoreticalDistanceReadings = angles.map(angle => {
             val currentAngle = normalizeAngle(position.angle + angle)
@@ -47,8 +47,8 @@ class FitnessCalculator(sensorParameters: SensorParameters) {
         errors.map(e => e * e).sum / errors.length
     }
 
-    def calculateErrorStats(map: Map, position: Position, sensorScan: SensorScan): Stats = {
-        val distanceReadingErrors = calculateDistanceReadingErrors(map, position, sensorScan)
+    def calculateErrorStats(position: Position): Stats = {
+        val distanceReadingErrors = calculateDistanceReadingErrors(position)
         Stats.calculate(distanceReadingErrors)
     }
 
