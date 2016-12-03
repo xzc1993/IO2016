@@ -50,7 +50,9 @@ class Annealer(map: Map, fitnessCalculator: FitnessCalculator) {
 
     private def randomMove() = (random.nextDouble() - 0.5) * MovingRange
 
-    private def isOutsideMap(point: Point) = point.x > map.getMapWidth || point.y > map.getMapHeight
+    private def isOutsideMap(point: Point): Boolean = {
+        point.x > map.getMapWidth || point.x < 0.0 || point.y > map.getMapHeight || point.y < 0
+    }
 
     private val random = new Random()
     private val widthFactor = map.getMapWidth / 360.0

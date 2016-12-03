@@ -46,23 +46,40 @@ class Map_Test2 extends FlatSpec {
         Wall(Point(3.0, 2.0), Point(2.0, 1.0))
     )))
 
-
-    "findCollisionWithWalls" must "collide with horizontal line at (1.0,2.0)" in {
-        val collsionPoint: Point = map.findCollisionWithWalls(new Line(0.0, 1.0, -2), Point(2, 2), 180.0).get
-        assert(collsionPoint.x == 1.0)
-        assert(collsionPoint.y == 2.0)
-    }
-
-    it must "collide with horizontal line at (3.0,2.0)" in {
+    "findCollisionWithWalls" must "collide with horizontal line at (3.0,2.0)" in {
         val collsionPoint: Point = map.findCollisionWithWalls(new Line(0.0, 1.0, -2), Point(2, 2), 0.0).get
         assert(collsionPoint.x == 3.0)
         assert(collsionPoint.y == 2.0)
+    }
+
+    it must "collide at (2.5,2.5)" in {
+        val collsionPoint: Point = map.findCollisionWithWalls(new Line(-1.0, 1.0, 0), Point(2, 2), 45.0).get
+        assert(collsionPoint.x == 2.5)
+        assert(collsionPoint.y == 2.5)
     }
 
     it must "collide with vertical line at (3.0,2.0)" in {
         val collsionPoint: Point = map.findCollisionWithWalls(new Line(1.0, 0.0, -2), Point(2, 2), 90.0).get
         assert(collsionPoint.x == 2.0)
         assert(collsionPoint.y == 3.0)
+    }
+
+    it must "collide with vertical line at (1.5,2.5)" in {
+        val collsionPoint: Point = map.findCollisionWithWalls(new Line(1.0, 1.0, -4), Point(2, 2), 135.0).get
+        assert(collsionPoint.x == 1.5)
+        assert(collsionPoint.y == 2.5)
+    }
+
+    it must "collide with horizontal line at (1.0,2.0)" in {
+        val collsionPoint: Point = map.findCollisionWithWalls(new Line(0.0, 1.0, -2), Point(2, 2), 180.0).get
+        assert(collsionPoint.x == 1.0)
+        assert(collsionPoint.y == 2.0)
+    }
+
+    it must "collide at (1.5,1.5)" in {
+        val collsionPoint: Point = map.findCollisionWithWalls(new Line(-1.0, 1.0, 0), Point(2, 2), 225.0).get
+        assert(collsionPoint.x == 1.5)
+        assert(collsionPoint.y == 1.5)
     }
 
     it must "collide with vertical line at (2.0,1.0)" in {
@@ -74,18 +91,6 @@ class Map_Test2 extends FlatSpec {
     it must "collide at (2.5,1.5)" in {
         val collsionPoint: Point = map.findCollisionWithWalls(new Line(1.0, 1.0, -4), Point(2, 2), 315.0).get
         assert(collsionPoint.x == 2.5)
-        assert(collsionPoint.y == 1.5)
-    }
-
-    it must "collide at (2.5,2.5)" in {
-        val collsionPoint: Point = map.findCollisionWithWalls(new Line(-1.0, 1.0, 0), Point(2, 2), 45.0).get
-        assert(collsionPoint.x == 2.5)
-        assert(collsionPoint.y == 2.5)
-    }
-
-    it must "collide at (1.5,1.5)" in {
-        val collsionPoint: Point = map.findCollisionWithWalls(new Line(-1.0, 1.0, 0), Point(2, 2), 225.0).get
-        assert(collsionPoint.x == 1.5)
         assert(collsionPoint.y == 1.5)
     }
 }
