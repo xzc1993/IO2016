@@ -5,7 +5,7 @@ import com.agh.io.Map.{Map, Point}
 import scala.util.Random
 
 class Annealer(map: Map, fitnessCalculator: FitnessCalculator) {
-    private val StartTemperature = 100000.0
+    private val StartTemperature = 1000.0
     private val MinTemperature = 0.5
     private val CoolingFactor = 0.9999
     private val MovingRange = 5.0 // TODO optimize these, parameterize?

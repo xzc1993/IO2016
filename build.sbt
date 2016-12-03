@@ -15,5 +15,6 @@ libraryDependencies ++= Seq(
     "org.apache.commons" % "commons-math3" % "3.6.1",
     "org.springframework" % "spring-context" % "4.2.5.RELEASE",
     "org.springframework" % "spring-aspects" % "4.2.5.RELEASE",
+    "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
     "javax.inject" % "javax.inject" % "1"
 )
