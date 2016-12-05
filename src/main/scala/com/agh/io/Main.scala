@@ -21,7 +21,7 @@ object Main extends App {
 //        val coordinates = line.split(",")
 //        new Position( new Point(coordinates(0).toDouble, coordinates(1).toDouble), 0.0)
 //    })
-//    mapDrafter.drawPath(positions)
+//    mapDrafter.drawPath(positions.toList)
     val pw = new PrintWriter(new File("results.txt" ))
     for(idx <- 0 to sensor.scans.length){
         println(s"Calculating position for reading ${idx}")
@@ -30,7 +30,7 @@ object Main extends App {
         results = results :+ result
         pw.write("" + result.position.point.x + "," + result.position.point.y + "\n")
         pw.flush()
-        mapDrafter.drawPath(results.map( x => x.position).iterator)
+        mapDrafter.drawPath(results.map( x => x.position))
     }
     pw.close
 }

@@ -26,7 +26,7 @@ class MapDrafter(map: Map) {
         javax.imageio.ImageIO.write(canvas, "png", new java.io.File("map.png"))
     }
 
-    def drawPath(positions: Iterator[Position]): Unit = {
+    def drawPath(positions: List[Position]): Unit = {
         var canvas = new BufferedImage(imageSize._1 + 5, imageSize._2 + 5, BufferedImage.TYPE_INT_RGB)
 
         val graphics = canvas.createGraphics()

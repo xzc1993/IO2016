@@ -19,7 +19,7 @@ class PositionCalculator(idx: Integer, configuration: Configuration, map: Map, s
     val cpu_cores = Runtime.getRuntime().availableProcessors()
     val pool = Executors.newFixedThreadPool(cpu_cores)
 
-    val IterationCount = 5000
+    val IterationCount = 20000
     val AcceptableGuessThreshold = 1.1
 
     def computeHypothesisClusters() = {
@@ -28,7 +28,7 @@ class PositionCalculator(idx: Integer, configuration: Configuration, map: Map, s
 
         val guessesByWorst = new mutable.PriorityQueue[RatedPosition]
 
-        while (guessNo < IterationCount) {
+        while (guessNo < IterationCount/cpu_cores) {
             guessNo += 1
             val position = PositionRandomizer.getRandomPositionOnMap(map)
             val fitness = fitnessCalculator.calculateFitness(position)
