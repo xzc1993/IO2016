@@ -26,12 +26,12 @@ class Annealer(map: Map, fitnessCalculator: FitnessCalculator) {
             }
             temperature = temperature * CoolingFactor
 
-            if (iterationNo % 10000 == 0) {
-                println(s"annealing... iteration $iterationNo, T = $temperature")
-            }
+//            if (iterationNo % 10000 == 0) {
+//                println(s"annealing... iteration $iterationNo, T = $temperature")
+//            }
         }
 
-        println(s"done after $iterationNo iterations")
+//        println(s"done after $iterationNo iterations")
 
         bestPosition
     }

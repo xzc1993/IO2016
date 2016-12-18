@@ -107,9 +107,9 @@ class PositionCalculator(idx: Integer, configuration: Configuration, map: Map, s
                     val centroid = cluster.centroid // TODO take best sample(s) from the cluster instead of the centroid?
                     val ratedCentroid = RatedPosition (centroid, fitnessCalculator.calculateFitness (centroid) )
                     val annealedPosition = annealer.anneal (ratedCentroid)
-                    println (s"centroid before annealing: $ratedCentroid")
-                    println (s"position after annealing:  $annealedPosition")
-                    println
+//                    println (s"centroid before annealing: $ratedCentroid")
+//                    println (s"position after annealing:  $annealedPosition")
+//                    println
                     annealedPosition
                 }
             })}

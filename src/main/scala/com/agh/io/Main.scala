@@ -30,7 +30,7 @@ object Main extends App {
         results = results :+ result
         pw.write("" + result.position.point.x + "," + result.position.point.y + "\n")
         pw.flush()
-        mapDrafter.drawPath(results.map( x => x.position))
     }
     pw.close
+    mapDrafter.drawPath(results)
 }
