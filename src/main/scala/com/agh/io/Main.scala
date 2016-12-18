@@ -11,6 +11,7 @@ object Main {
         val configuration = new CommandLineParser().load(args)
         ActorSystem(WorkerSystemName, akkaConfig(configuration.hostname, WorkerSystemPort))
         if (configuration.nodeId == 0) {
+            Thread.sleep(10000) // TODO temporary fix, get rid of manual actor creation and use Akka Cluster
             val coordinatorSystem = ActorSystem(CoordinatorSystemName, akkaConfig(configuration.hostname, CoordinatorSystemPort))
             coordinatorSystem.actorOf(Coordinator.props(configuration), name = "coordinator")
         }
