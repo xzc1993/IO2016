@@ -14,6 +14,9 @@ class CommandLineParser {
             opt[String]('h', "hostname").required().action({ (x, c) =>
                 c.copy(hostname = x)
             }).text("Current node hostname.")
+            opt[File]('x', "hosts").required().action({ (x, c) =>
+                c.copy(hostsFileName = x)
+            }).text("Current node hostname.")
             opt[File]('s', "sensorData").required().valueName("<file>").action({ (x, c) =>
                 c.copy(inputData = c.inputData.copy(sensorDataFile = x))
             }).text("File containing sensor data.")

@@ -16,4 +16,5 @@ case class InputData(sensorDataFile: File = null,
 
 case class Configuration(nodeId: Int = 0,
                          hostname: String = "",
+                         hostsFileName: File = null,
                          inputData: InputData = InputData())

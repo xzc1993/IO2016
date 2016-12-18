@@ -1,16 +1,17 @@
 package com.agh.io
 
 import akka.actor.ActorSystem
-import com.agh.io.remote.Coordinator
 import com.agh.io.configuration.CommandLineParser
+import com.agh.io.remote.Coordinator
+import com.agh.io.remote.Properties._
 import com.typesafe.config.ConfigFactory
 
 object Main {
     def main(args: Array[String]): Unit = {
         val configuration = new CommandLineParser().load(args)
-        ActorSystem("WorkerSystem", akkaConfig(configuration.hostname, 2554))
+        ActorSystem(WorkerSystemName, akkaConfig(configuration.hostname, WorkerSystemPort))
         if (configuration.nodeId == 0) {
-            val coordinatorSystem = ActorSystem("CoordinatorSystem", akkaConfig(configuration.hostname, 2552))
+            val coordinatorSystem = ActorSystem(CoordinatorSystemName, akkaConfig(configuration.hostname, CoordinatorSystemPort))
             coordinatorSystem.actorOf(Coordinator.props(configuration), name = "coordinator")
         }
     }
