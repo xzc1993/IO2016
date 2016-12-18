@@ -10,7 +10,7 @@ object Main {
         ActorSystem("WorkerSystem", akkaConfig(configuration.hostname, 2554))
         if (configuration.nodeId == 0) {
             val coordinatorSystem = ActorSystem("CoordinatorSystem", akkaConfig(configuration.hostname, 2552))
-            coordinatorSystem.actorOf(Props(new Coordinator(configuration)), name = "coordinator")
+            coordinatorSystem.actorOf(Coordinator.props(configuration), name = "coordinator")
         }
     }
 
@@ -19,6 +19,7 @@ object Main {
            |akka {
            |  actor {
            |    provider = "akka.remote.RemoteActorRefProvider"
+           |    warn-about-java-serializer-usage = false
            |  }
            |  remote {
            |    enabled-transports = ["akka.remote.netty.tcp"]
