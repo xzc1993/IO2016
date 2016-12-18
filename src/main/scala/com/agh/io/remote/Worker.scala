@@ -1,4 +1,4 @@
-package com.agh.io
+package com.agh.io.remote
 
 import java.io.File
 

@@ -1,6 +1,7 @@
 package com.agh.io
 
-import akka.actor.{ActorSystem, Props}
+import akka.actor.ActorSystem
+import com.agh.io.remote.Coordinator
 import com.agh.io.configuration.CommandLineParser
 import com.typesafe.config.ConfigFactory
 

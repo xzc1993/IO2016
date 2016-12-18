@@ -1,4 +1,4 @@
-package com.agh.io
+package com.agh.io.remote
 
 import com.agh.io.core.RatedPosition
 import com.agh.io.sensor.SensorScan

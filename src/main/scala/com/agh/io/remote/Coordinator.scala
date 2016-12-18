@@ -1,11 +1,11 @@
-package com.agh.io
+package com.agh.io.remote
 
 import akka.actor.{Actor, ActorRef, Address, Deploy, Props}
 import akka.remote.RemoteScope
 import com.agh.io.configuration.Configuration
 import com.agh.io.core.{MapDrafter, RatedPosition}
 import com.agh.io.map.MapLoader
-import com.agh.io.sensor.{Sensor, SensorLoader}
+import com.agh.io.sensor.SensorLoader
 
 class Coordinator(configuration: Configuration) extends Actor {
     val sensor = new SensorLoader(configuration.inputData.sensorDataFile).load()
