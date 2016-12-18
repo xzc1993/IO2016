@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+#PBS -l walltime=24:00:00
+#PBS -l pmem=2gb
+#PBS -l nodes=390:ppn=12
+#PBS -q plgrid
+#PBS -N plggintob16
+#PBS -A intob2016
 
 . /etc/bashrc
 cd ~/IntObl2016
