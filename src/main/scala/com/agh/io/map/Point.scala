@@ -12,4 +12,6 @@ case class Point(
     }
 
     def scale(factor: Double): Point = Point(x = x * factor, y = y * factor)
+
+    def -(that: Point) = Point(this.x - that.x, this.y - that.y)
 }

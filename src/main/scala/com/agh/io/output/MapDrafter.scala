@@ -1,9 +1,10 @@
-package com.agh.io.core
+package com.agh.io.output
 
 import java.awt.geom._
 import java.awt.image.{AffineTransformOp, BufferedImage}
 import java.awt.{BasicStroke, Color, Graphics2D}
 
+import com.agh.io.core.{RatedPosition, RatedPositionWithPrediction}
 import com.agh.io.map.Map
 
 class MapDrafter(map: Map) {
@@ -18,21 +19,26 @@ class MapDrafter(map: Map) {
         })
     }
 
-    def drawPath(positions: Seq[RatedPosition]): Unit = {
+    def drawPath(positionsWithPredictions: Seq[RatedPositionWithPrediction]): Unit = {
+        val maxMotionModelDifference = positionsWithPredictions.map(_.differenceNorm).max
+        val positions = positionsWithPredictions.map(_.ratedPosition)
         val maxFitness = positions.map(_.fitness).max
         createImage(() => {
             drawMap()
-            drawTrace(positions)
+            drawTrace(positionsWithPredictions, maxMotionModelDifference)
             positions.foreach(drawRobot(_, maxFitness))
             positions.foreach(drawAngle)
         })
     }
+
 
     private def createImage(draftingFunction: () => Unit): Unit = {
         canvas = new BufferedImage(imageSize._1 + 5, imageSize._2 + 5, BufferedImage.TYPE_INT_RGB)
 
         graphics = canvas.createGraphics()
         graphics.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+
+        graphics.setStroke(new BasicStroke(StrokeWidth))
 
         draftingFunction()
 
@@ -46,25 +52,32 @@ class MapDrafter(map: Map) {
     }
 
     private def drawMap() = {
-        graphics.setColor(Color.WHITE)
+        graphics.setColor(Color.BLACK)
         graphics.fillRect(0, 0, canvas.getWidth, canvas.getHeight)
 
         graphics.setStroke(new BasicStroke())
-        graphics.setColor(Color.BLUE)
+        graphics.setColor(Color.CYAN)
         map.data.walls.foreach(wall => drawLine(wall.from.x, wall.from.y, wall.to.x, wall.to.y))
     }
 
-    private def drawTrace(positions: Seq[RatedPosition]): RatedPosition = {
-        graphics.setColor(Color.RED)
-        positions.reduce((positionA: RatedPosition, positionB: RatedPosition) => {
-            drawLine(positionA.position.point.x, positionA.position.point.y, positionB.position.point.x, positionB.position.point.y)
+    private def drawTrace(positionsWithPredictions: Seq[RatedPositionWithPrediction], maxMotionModelDifference: Double): Unit = {
+        positionsWithPredictions.reduce((positionA: RatedPositionWithPrediction, positionB: RatedPositionWithPrediction) => {
+            setErrorColor(positionB.differenceNorm / maxMotionModelDifference)
+            drawLine(positionA.ratedPosition.position.point.x, positionA.ratedPosition.position.point.y, positionB.ratedPosition.position.point.x, positionB.ratedPosition.position.point.y)
             positionB
         })
     }
 
     private def drawRobot(position: RatedPosition, maxFitness: Double) = {
-        setColorWithError(position, maxFitness)
-        graphics.fill(new Ellipse2D.Double((position.position.point.x / mapWidth) * imageWidth - robotRadius/2, (position.position.point.y / mapHeight) * imageHeight - robotRadius/2, robotRadius, robotRadius))
+        setErrorColor(position.fitness / maxFitness)
+        graphics.fill(new Ellipse2D.Double((position.position.point.x / mapWidth) * ImageWidth - RobotRadius/2, (position.position.point.y / mapHeight) * imageHeight - RobotRadius/2, RobotRadius, RobotRadius))
+    }
+
+    private def setErrorColor(errorFraction: Double): Unit = {
+        val r = Math.min(2.0 * errorFraction, 1.0)
+        val g = Math.min(2.0 * (1.0 - errorFraction), 1.0)
+        val b = 0.0
+        graphics.setColor(new Color(r.toFloat, g.toFloat, b.toFloat))
     }
 
     private def drawAngle(position: RatedPosition): Unit = {
@@ -75,10 +88,6 @@ class MapDrafter(map: Map) {
         val ray_x = RayLength * math.cos(angle)
         val ray_y = RayLength * math.sin(angle)
         drawLine(x, y, x + ray_x, y + ray_y)
-    }
-
-    private def setColorWithError(position: RatedPosition, maxFitness: Double): Unit = {
-        graphics.setColor(new Color(255, 192 - ((position.fitness / maxFitness) * 128).toInt, 0))
     }
 
     private def drawLine(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
@@ -93,11 +102,12 @@ class MapDrafter(map: Map) {
     private val mapHeight = map.getMapHeight
     private val heightToWidthRatio = mapHeight / mapWidth
 
-    private val imageWidth = 477
-    private val robotRadius = 6
+    private val ImageWidth = 600
+    private val RobotRadius = 7
+    private val StrokeWidth = 10
     private val RayLength = 200
-    private val imageHeight = (imageWidth * heightToWidthRatio).toInt
-    private val imageSize = (imageWidth, imageHeight)
-    private val widthScale = imageWidth / mapWidth
+    private val imageHeight = (ImageWidth * heightToWidthRatio).toInt
+    private val imageSize = (ImageWidth, imageHeight)
+    private val widthScale = ImageWidth / mapWidth
     private val heightScale = imageHeight / mapHeight
 }

@@ -5,8 +5,8 @@ import com.agh.io.sensor.SensorScan
 
 case object WorkerStarted
 
-case class Calculate(sensorScan: SensorScan)
+case class Calculate(sensorScan: SensorScan, id: Int)
 
-case class Calculated(workerId: Int, ratedPosition: RatedPosition)
+case class Calculated(ratedPosition: RatedPosition, id: Int)
 
 case object ShutDown

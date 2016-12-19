@@ -16,10 +16,10 @@ class Worker(configuration: Configuration) extends Actor {
     }
 
     override def receive = {
-        case Calculate(sensorScan) =>
+        case Calculate(sensorScan, id) =>
             val positionCalculator = new PositionCalculator(sensorScan, configuration.inputData.sensorParameters, map)
             val ratedPosition = positionCalculator.run()
-            sender ! Calculated(configuration.nodeId, ratedPosition)
+            sender ! Calculated(ratedPosition, id)
         case ShutDown =>
             context.system.terminate()
     }
