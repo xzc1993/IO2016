@@ -6,6 +6,7 @@ object Properties {
 
     val CoordinatorSystemName = "CoordinatorSystem"
     val CoordinatorSystemPort = 2552
+    val CoordinatorActorName = "coordinator"
 
     val Protocol = "akka.tcp"
 }

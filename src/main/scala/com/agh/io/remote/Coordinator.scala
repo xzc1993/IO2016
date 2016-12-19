@@ -1,11 +1,9 @@
 package com.agh.io.remote
 
-import akka.actor.{Actor, ActorRef, Address, Deploy, Props}
-import akka.remote.RemoteScope
+import akka.actor.{Actor, ActorRef, Props}
 import com.agh.io.configuration.Configuration
 import com.agh.io.core.{MapDrafter, RatedPosition}
 import com.agh.io.map.MapLoader
-import com.agh.io.remote.Properties._
 import com.agh.io.sensor.SensorLoader
 
 import scala.io.Source
@@ -19,19 +17,16 @@ class Coordinator(configuration: Configuration) extends Actor {
     var workers = Vector[ActorRef]()
     var results = Vector[RatedPosition]()
 
-    override def preStart() = {
-        val circularHostIterator = Iterator.continually(hosts).flatten
-        for (i <- sensor.scans.indices) {
-            val next = circularHostIterator.next()
-            val address = Address(Protocol, WorkerSystemName, next, WorkerSystemPort)
-            val worker = context.actorOf(Worker.props(i, configuration.inputData.sensorParameters, configuration.inputData.mapDataFile).
-                withDeploy(Deploy(scope = RemoteScope(address))))
-            workers = workers :+ worker
-            worker ! Calculate(sensor.scans(i))
-        }
-    }
-
     override def receive = {
+        case WorkerStarted =>
+            workers = workers :+ sender
+            if (workers.length == hosts.length) self ! StartCalculation
+        case StartCalculation =>
+            val circularWorkerIterator = Iterator.continually(workers).flatten
+            for (i <- sensor.scans.indices) {
+                val worker = circularWorkerIterator.next()
+                worker ! Calculate(sensor.scans(i))
+            }
         case Calculated(workerId, ratedPosition) =>
             results = results :+ ratedPosition
             if (results.length == workers.length) self ! Done
@@ -46,5 +41,7 @@ class Coordinator(configuration: Configuration) extends Actor {
 object Coordinator {
     def props(configuration: Configuration) = Props(new Coordinator(configuration))
 }
+
+case object StartCalculation
 
 case object Done
