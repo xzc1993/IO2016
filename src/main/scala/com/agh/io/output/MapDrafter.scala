@@ -3,11 +3,12 @@ package com.agh.io.output
 import java.awt.geom._
 import java.awt.image.{AffineTransformOp, BufferedImage}
 import java.awt.{BasicStroke, Color, Graphics2D}
+import java.io.File
 
 import com.agh.io.core.{RatedPosition, RatedPositionWithPrediction}
 import com.agh.io.map.Map
 
-class MapDrafter(map: Map) {
+class MapDrafter(map: Map, drawingFile: File) {
     var canvas: BufferedImage = _
     var graphics: Graphics2D = _
 
@@ -48,7 +49,7 @@ class MapDrafter(map: Map) {
         canvas = op.filter(canvas, null)
 
         graphics.dispose()
-        javax.imageio.ImageIO.write(canvas, "png", new java.io.File("map.png"))
+        javax.imageio.ImageIO.write(canvas, "png", drawingFile)
     }
 
     private def drawMap() = {

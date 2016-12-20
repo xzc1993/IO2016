@@ -13,10 +13,10 @@ import scala.collection.mutable
 import scala.io.Source
 
 class Coordinator(configuration: Configuration) extends Actor {
-    val hosts = Source.fromFile(configuration.hostsFileName).getLines().toList
+    val hosts = Source.fromFile(configuration.hostsFile).getLines().toList
     val sensor = new SensorLoader(configuration.inputData.sensorDataFile).load()
     val map = new MapLoader(configuration.inputData.mapDataFile).load()
-    val mapDrafter = new MapDrafter(map)
+    val mapDrafter = new MapDrafter(map, configuration.drawingFile)
 
     var workers = Vector[ActorRef]()
     val results = mutable.Map[Int, RatedPosition]()

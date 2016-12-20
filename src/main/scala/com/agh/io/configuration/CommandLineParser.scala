@@ -18,8 +18,11 @@ class CommandLineParser {
                 c.copy(coordinatorHostname = x)
             }).text("Coordinator node hostname.")
             opt[File]('x', "hosts").required().action({ (x, c) =>
-                c.copy(hostsFileName = x)
+                c.copy(hostsFile = x)
             }).text("Name of the file with node hostnames.")
+            opt[File]('d', "drawingFile").required().action({ (x, c) =>
+                c.copy(drawingFile = x)
+            }).text("Name of the output file for the drawing.")
             opt[File]('s', "sensorData").required().valueName("<file>").action({ (x, c) =>
                 c.copy(inputData = c.inputData.copy(sensorDataFile = x))
             }).text("File containing sensor data.")

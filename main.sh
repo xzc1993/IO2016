@@ -19,8 +19,10 @@ cat ${PBS_NODEFILE} | uniq > ${HOSTS_FILE_NAME}
 
 COORDINATOR_HOST=`head -n 1 ${HOSTS_FILE_NAME}`
 
+DRAWING_FILE_NAME=map_${PBS_JOBID}.png
+
 J=0
 while read HOST; do
-    pbsdsh -o -h ${HOST} ~/IntObl2016/main_node.sh ${J} ${HOST} ${COORDINATOR_HOST} ${HOSTS_FILE_NAME} 2>&1 &
+    pbsdsh -o -h ${HOST} ~/IntObl2016/main_node.sh ${J} ${HOST} ${COORDINATOR_HOST} ${HOSTS_FILE_NAME} ${DRAWING_FILE_NAME} 2>&1 &
     J=$((J+1))
 done < ${HOSTS_FILE_NAME}
