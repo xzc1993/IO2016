@@ -57,7 +57,7 @@ class MapDrafter(map: Map, drawingFile: File) {
         graphics.fillRect(0, 0, canvas.getWidth, canvas.getHeight)
 
         graphics.setStroke(new BasicStroke())
-        graphics.setColor(Color.CYAN)
+        graphics.setColor(Color.WHITE)
         map.data.walls.foreach(wall => drawLine(wall.from.x, wall.from.y, wall.to.x, wall.to.y))
     }
 
@@ -82,7 +82,7 @@ class MapDrafter(map: Map, drawingFile: File) {
     }
 
     private def drawAngle(position: RatedPosition): Unit = {
-        graphics.setColor(Color.GREEN)
+        graphics.setColor(Color.CYAN)
         val x = position.position.point.x
         val y = position.position.point.y
         val angle = Math.toRadians(position.position.angle)

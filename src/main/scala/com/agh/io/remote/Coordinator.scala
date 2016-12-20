@@ -37,8 +37,16 @@ class Coordinator(configuration: Configuration) extends Actor {
         case Done =>
             val positions = results.toSeq.sortBy(_._1).map(_._2)
             val positionPredictions = calculatePositionPredictions(positions)
-            positions.foreach(position => println(s"${position.position.point.x};${position.position.point.y};${position.position.angle}"))
-            mapDrafter.drawPath(positions.zip(positionPredictions).map(RatedPositionWithPrediction.tupled(_)))
+            val positionsWithPredictions = positions.zip(positionPredictions).map(RatedPositionWithPrediction.tupled(_))
+            positionsWithPredictions.foreach(position => {
+                    println(
+                        f"${position.ratedPosition.position.point.x}%6.1f;${position.ratedPosition.position.point.y}%6.1f;" +
+                            f"${position.ratedPosition.position.angle}%6.1f;${position.ratedPosition.fitness}%6.1f;" +
+                            f"${position.nextPositionPrediction.point.x}%6.1f;${position.nextPositionPrediction.point.y}%6.1f;" +
+                            f"${position.nextPositionPrediction.angle}%6.1f;${position.differenceNorm}%6.1f"
+                    )
+            })
+            mapDrafter.drawPath(positionsWithPredictions)
             workers.foreach(_ ! ShutDown)
             context.system.terminate()
     }
