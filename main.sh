@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#PBS -l walltime=12:00:00
+#PBS -l walltime=01:00:00
 #PBS -l pmem=1gb
 #PBS -l nodes=64:ppn=12
 #PBS -q plgrid
@@ -13,7 +13,6 @@ module load plgrid/tools/sbt/0.13.9
 module load plgrid/tools/java8/oracle/1.8.0
 
 sbt clean compile
-
 HOSTS_FILE_NAME=hosts_${PBS_JOBID}.txt
 cat ${PBS_NODEFILE} | uniq > ${HOSTS_FILE_NAME}
 
@@ -30,4 +29,4 @@ while read HOST; do
     J=$((J+1))
 done < ${HOSTS_WITHOUT_COORDINATOR_FILE_NAME}
 
-~/IntObl2016/main_node.sh 0 ${COORDINATOR_HOST} ${COORDINATOR_HOST} ${HOSTS_FILE_NAME} ${DRAWING_FILE_NAME} 2>&1
+~/IntObl2016/main_node.sh 0 ${COORDINATOR_HOST} ${COORDINATOR_HOST} ${HOSTS_FILE_NAME} ${DRAWING_FILE_NAME} $1 $2 2>&1
