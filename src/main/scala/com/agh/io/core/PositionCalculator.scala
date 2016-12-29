@@ -42,24 +42,24 @@ class PositionCalculator(sensorScan: SensorScan, sensorParameters: SensorParamet
                 }
             }
 
-//            if (guessNo % 10000 == 0) { // TODO proper logging?
-//                println(f"guess: $guessNo%9d, acceptable guess count: ${guessesByWorst.length}%6d")
-//                println
-//
-//                guessesByWorst.foreach(guess => printPositionStats(map, guess, sensorScan))
-//                println
-//
-//                val errors = fitnessCalculator.calculateDistanceReadingErrors(bestPosition.position)
-//                println(s"best guess errors: ${errors.map(e => f"$e%6.1f").mkString(", ")}")
-//                println
-//
-//                val clusters = clusterer.cluster(guessesByWorst.toSeq)
-//                clusters.foreach(c => println(f"cluster (${c.positions.size}%2d, centroid: ${c.centroid}): " +
-//                    s"${c.positions.map(_.position).mkString(", ")}"))
-//                println
-//                println("-------------------------------------------------------------------------------------------")
-//                println
-//            }
+            if (guessNo % 10000 == 0) { // TODO proper logging?
+                println(f"guess: $guessNo%9d, acceptable guess count: ${guessesByWorst.length}%6d")
+                println
+
+                guessesByWorst.foreach(guess => printPositionStats(map, guess, sensorScan))
+                println
+
+                val errors = fitnessCalculator.calculateDistanceReadingErrors(bestPosition.position)
+                println(s"best guess errors: ${errors.map(e => f"$e%6.1f").mkString(", ")}")
+                println
+
+                val clusters = clusterer.cluster(guessesByWorst.toSeq)
+                clusters.foreach(c => println(f"cluster (${c.positions.size}%2d, centroid: ${c.centroid}): " +
+                    s"${c.positions.map(_.position).mkString(", ")}"))
+                println
+                println("-------------------------------------------------------------------------------------------")
+                println
+            }
         }
 
         clusterer.cluster(guessesByWorst.toSeq)
