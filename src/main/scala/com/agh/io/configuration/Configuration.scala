@@ -15,6 +15,8 @@ case class InputData(sensorDataFile: File = null,
                      sensorParameters: SensorParameters = SensorParameters())
 
 case class Configuration(nodeId: Int = 0,
+                         rangeStart: Int = 0,
+                         rangeEnd: Int = Int.MaxValue,
                          hostname: String = "",
                          coordinatorHostname: String = "",
                          hostsFile: File = null,

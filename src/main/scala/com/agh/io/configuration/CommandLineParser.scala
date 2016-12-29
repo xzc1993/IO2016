@@ -11,6 +11,12 @@ class CommandLineParser {
             opt[Int]('i', "nodeId").required().action({ (x, c) =>
                 c.copy(nodeId = x)
             }).text("Current node ID.")
+            opt[Int]('b', "rangeStart").required().action({ (x, c) =>
+                c.copy(rangeStart = x)
+            }).text("First sensor reading id to process")
+            opt[Int]('e', "rangeEnd").required().action({ (x, c) =>
+                c.copy(rangeEnd = x)
+            }).text("First sensor reading id to process")
             opt[String]('h', "hostname").required().action({ (x, c) =>
                 c.copy(hostname = x)
             }).text("Current node hostname.")
