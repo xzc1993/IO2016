@@ -26,7 +26,7 @@ DRAWING_FILE_NAME=map_${PBS_JOBID}.png
 
 J=1
 while read HOST; do
-    pbsdsh -o -h ${HOST} ~/IntObl2016/main_node.sh ${J} ${HOST} ${COORDINATOR_HOST} ${HOSTS_FILE_NAME} ${DRAWING_FILE_NAME} 2>&1 &
+    pbsdsh -o -h ${HOST} ~/IntObl2016/main_node.sh ${J} ${HOST} ${COORDINATOR_HOST} ${HOSTS_FILE_NAME} ${DRAWING_FILE_NAME} $1 $2 2>&1 &
     J=$((J+1))
 done < ${HOSTS_WITHOUT_COORDINATOR_FILE_NAME}
 
