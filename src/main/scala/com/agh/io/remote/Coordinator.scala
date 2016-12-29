@@ -35,6 +35,7 @@ class Coordinator(configuration: Configuration) extends Actor {
             }
         case Calculated(ratedPosition, id) =>
             results.put(id, ratedPosition)
+            println(s"${results.size} ${configuration.rangeEnd - configuration.rangeStart}")
             if (results.size == (configuration.rangeEnd - configuration.rangeStart)) self ! Done
         case Done =>
             val positions = results.toSeq.sortBy(_._1).map(_._2)
