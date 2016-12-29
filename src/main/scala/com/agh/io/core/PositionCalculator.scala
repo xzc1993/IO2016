@@ -28,6 +28,7 @@ class PositionCalculator(sensorScan: SensorScan, sensorParameters: SensorParamet
         val guessesByWorst = new mutable.PriorityQueue[RatedPosition]
 
         while (guessNo < IterationCount/cpu_cores) {
+            println(s"${guessNo}")
             guessNo += 1
             val position = PositionRandomizer.getRandomPositionOnMap(map)
             val fitness = fitnessCalculator.calculateFitness(position)
