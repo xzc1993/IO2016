@@ -25,6 +25,7 @@ class Coordinator(configuration: Configuration) extends Actor {
     override def receive = {
         case WorkerStarted =>
             workers = workers :+ sender
+            println(s"${workers.length} ${hosts.length}")
             if (workers.length == hosts.length) self ! StartCalculation
         case StartCalculation =>
             val circularWorkerIterator = Iterator.continually(workers).flatten
