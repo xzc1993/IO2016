@@ -55,7 +55,7 @@ class Coordinator(configuration: Configuration) extends Actor {
                 f"${position.ratedPosition.position.point.x}%6.1f;${position.ratedPosition.position.point.y}%6.1f;" +
                     f"${position.ratedPosition.position.angle}%6.1f;${position.ratedPosition.fitness}%6.1f;" +
                     f"${position.nextPositionPrediction.point.x}%6.1f;${position.nextPositionPrediction.point.y}%6.1f;" +
-                    f"${position.nextPositionPrediction.angle}%6.1f;${position.differenceNorm}%6.1f"
+                    f"${position.nextPositionPrediction.angle}%6.1f;${position.differenceNorm}%6.1f;\n"
             )
         })
         writer.close()
