@@ -1,6 +1,6 @@
 import subprocess
 
-for idx in range(0, 400, 4):
+for idx in range(0, 40, 4):
     process = subprocess.Popen([
         'qsub',
         '-l', 'nodes=1:ppn=12',
@@ -8,4 +8,5 @@ for idx in range(0, 400, 4):
         '-l', 'walltime=2:00:00',
         '-F', '"{0} {1}"'.format(str(idx), str(idx+4)),
         '/people/plgkzieba/IntObl2016/main.sh'])
+    process.communicate()
 
