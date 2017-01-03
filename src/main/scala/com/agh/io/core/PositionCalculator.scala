@@ -76,7 +76,7 @@ class PositionCalculator(sensorScan: SensorScan, sensorParameters: SensorParamet
 
     def run(): RatedPosition = {
         val clusters = runClusterization()
-        val result = runAnnealing(clusters)
+        val result = runAnnealing(clusters.take(cpu_cores*2))
         pool.shutdownNow()
         result
     }
