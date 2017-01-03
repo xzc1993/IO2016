@@ -12,7 +12,6 @@ cd ~/IntObl2016
 module load plgrid/tools/sbt/0.13.9
 module load plgrid/tools/java8/oracle/1.8.0
 
-sbt clean compile
 HOSTS_FILE_NAME=hosts_${PBS_JOBID}.txt
 cat ${PBS_NODEFILE} | uniq > ${HOSTS_FILE_NAME}
 
