@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #PBS -l walltime=01:00:00
 #PBS -l pmem=1gb
-#PBS -l nodes=64:ppn=12
+#PBS -l nodes=1:ppn=12
 #PBS -q plgrid
 #PBS -N plggintob16
 #PBS -A intob2016

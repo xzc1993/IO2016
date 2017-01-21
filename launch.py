@@ -7,6 +7,6 @@ for idx in range(0, 40, 4):
         '-A', 'intob2016',
         '-l', 'walltime=1:00:00',
         '-F', '"{0} {1}"'.format(str(idx), str(idx+4)),
-        '/people/plgkzieba/IntObl2016/main.sh'])
+        '/people/plgpgoralczyk/IntObl2016/main.sh'])
     process.communicate()
 
