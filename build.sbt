@@ -18,3 +18,5 @@ libraryDependencies ++= Seq(
     "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
     "javax.inject" % "javax.inject" % "1"
 )
+
+mainClass in (Compile, run) := Some("com.agh.io.Main")
