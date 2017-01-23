@@ -26,7 +26,7 @@ object DrawerMain {
     }
 
     def loadPositions(): Seq[RatedPosition] = {
-        val bufferedSource = io.Source.fromFile("results\\results.csv")
+        val bufferedSource = io.Source.fromFile("results/results.csv")
         var data: Array[RatedPosition] = new Array[RatedPosition](0)
         for (line <- bufferedSource.getLines) {
             val cols = line.split(",").map(_.trim)
