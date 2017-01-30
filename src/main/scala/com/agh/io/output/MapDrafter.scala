@@ -103,7 +103,7 @@ class MapDrafter(map: Map, drawingFile: File) {
     private val mapHeight = map.getMapHeight
     private val heightToWidthRatio = mapHeight / mapWidth
 
-    private val ImageWidth = 600
+    private val ImageWidth = 2400
     private val RobotRadius = 7
     private val StrokeWidth = 10
     private val RayLength = 200

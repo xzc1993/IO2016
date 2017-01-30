@@ -1,5 +1,6 @@
 package com.agh.io
 
+import java.io.File
 import java.time.temporal.ChronoUnit
 
 import com.agh.io.configuration.CommandLineParser
@@ -16,17 +17,27 @@ object DrawerMain {
         val configuration = new CommandLineParser().load(args)
         val sensor = new SensorLoader(configuration.inputData.sensorDataFile).load()
         val map = new MapLoader(configuration.inputData.mapDataFile).load()
-        val mapDrafter = new MapDrafter(map, configuration.drawingFile)
+
 
         val positions = loadPositions()
+        println(positions.length)
         val positionPredictions = calculatePositionPredictions(sensor, positions)
+        println(positionPredictions.length)
         val positionsWithPredictions = positions.zip(positionPredictions).map(RatedPositionWithPrediction.tupled(_))
+        println(positionsWithPredictions.length)
 
-        mapDrafter.drawPath(positionsWithPredictions)
+        var idx = 0;
+        for(slice <- positionsWithPredictions.grouped(100)){
+            val file = new File(s"map_3_${idx}.png")
+            val mapDrafter = new MapDrafter(map, file)
+            mapDrafter.drawPath(slice)
+            idx += 1
+        }
+
     }
 
     def loadPositions(): Seq[RatedPosition] = {
-        val bufferedSource = io.Source.fromFile("results/results.csv")
+        val bufferedSource = io.Source.fromFile("results/results_3.csv")
         var data: Array[RatedPosition] = new Array[RatedPosition](0)
         for (line <- bufferedSource.getLines) {
             val cols = line.split(",").map(_.trim)
