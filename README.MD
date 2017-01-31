@@ -11,9 +11,11 @@
 ## Dane wyjściowe (folder results)
 
 1. Plik CSV z wynikowymi pozycjami dla odpowiadajcych pomiarów z pliku wejściowego. Dodatkowo dla każdego pomiaru zamieszczona jest osiągnieta wartość funkcji fitness oraz kolejny punkt i odległość wynikająca z modelu ruchu.
-2. Mapa z narysowaną wynikową ścieżką robota. Przykład - 100 początkowych pozycji robota (dane o przejeździe - DaneLabirynt1.csv):
+2. Mapa z narysowaną wynikową ścieżką robota. Mapy dla wszystkich punktów znajdują się w [pliku ZIP](results/IO2016_kzieba_pgoralczyk.zip). Przykład - 100 początkowych pozycji robota (dane o przejeździe - [DaneLabirynt1.csv](data/DaneLabirynt1.csv)):
 
 ![alt text](https://github.com/xzc1993/IntObl2016/blob/master/map_1_0.png "100 pierwszych punktów dla DaneLabirynt1.csv")
+
+
 ## Wymagania
 
 Celem projektu jest przygotowanie rozproszonego benchmarku dla lokalizacji robotów mobilnych w budynku.
